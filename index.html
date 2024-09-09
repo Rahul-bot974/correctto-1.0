@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Brand</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Background for all pages */
+        body {
+            background-image: url('https://t4.ftcdn.net/jpg/04/31/19/89/360_F_431198909_DwGgs82ot1BTZ7wu6dnvwpBRTKVDZROd.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        header img {
+            width: 150px;
+            height: auto;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 2rem;
+            margin-left: 20px;
+        }
+
+        #splash {
+            text-align: center;
+            padding: 20px;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        h2 {
+            color: white;
+        }
+
+        input, button, textarea {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 80%;
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e91e63;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+</head>
+<body>
+    <!-- Global Header -->
+    <header>
+        <!-- Using a placeholder logo for testing -->
+        <img src="https://scontent-del1-1.xx.fbcdn.net/v/t39.30808-6/459032206_1244227727016059_2429537534172111282_n.jpg?stp=dst-jpg_p526x296&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=ZtDimNtbbzYQ7kNvgHwh_Gd&_nc_ht=scontent-del1-1.xx&oh=00_AYCRV-SvXrWnvEiGnW-YZCpNKIwtPw3rXMhOpTmVcH2eyg&oe=66E499BC" alt="CORRECTTO Logo">
+        <h1>CORRECTTO</h1>
+    </header>
+
+    <!-- Splash Screen -->
+    <div id="splash" class="hidden">
+        <h1>Welcome to CORRECTTO</h1>
+    </div>
+
+    <!-- Phone Number Input Page -->
+    <div id="phone-page" class="hidden">
+        <h2>REGISTER</h2>
+        <input type="text" id="phone-number" placeholder="Enter contact no.">
+        <button onclick="submitPhoneNumber()">Submit</button>
+    </div>
+
+    <!-- User or Retailer Choice Page -->
+    <div id="choice-page" class="hidden">
+        <h2>Are you a?</h2>
+        <button onclick="selectOption('User')">User</button>
+        <button onclick="selectOption('Retailer')">Retailer</button>
+    </div>
+
+    <!-- User Details Page -->
+    <div id="user-details-page" class="hidden">
+        <nav>
+            <a href="#" onclick="goHome()" class="home-btn">Home</a>
+            <a href="#" onclick="goBack()" class="back-btn">&lt;</a>
+        </nav>
+        <h2>User Details</h2>
+        <form id="user-form">
+            <label for="user-name">Name:</label><br>
+            <input type="text" id="user-name" placeholder="Enter your name"><br>
+
+            <label for="user-address">Current Address:</label><br>
+            <input type="text" id="user-address" placeholder="Enter your address"><br>
+
+            <label for="user-pin">Pin Code:</label><br>
+            <input type="text" id="user-pin" placeholder="Enter your pin code"><br>
+
+            <label for="device-name">Device Name or Model Number:</label><br>
+            <input type="text" id="device-name" placeholder="Enter device name/model"><br>
+
+            <button type="button" onclick="submitUserDetails()">Submit</button>
+        </form>
+    </div>
+
+    <!-- User Home Page -->
+<div id="user-home-page" class="hidden">
+    <h3>Welcome to User Home</h3>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <button onclick="goHome()">Home</button>
+        <button onclick="searchSomething()">Search</button>
+        <button onclick="showMap()">Map</button>
+        <button onclick="showAccountDetails()">Account</button>
+    </div>
+
+    <!-- Account Details Box -->
+    <div id="account-box" class="hidden">
+        <h4>Account Details</h4>
+        <p>Name: <span id="user-account-name"></span></p>
+        <p>Address: <span id="user-account-address"></span></p>
+        <p>Pin: <span id="user-account-pin"></span></p>
+        <p>Device: <span id="user-account-device"></span></p>
+    </div>
+
+    <!-- Submit Problem Section -->
+    <div id="submit-problem-section">
+        <h4>Submit Problem</h4>
+        <button onclick="showProblemOptions()">Submit Problem</button>
+        <div id="problem-options" class="hidden">
+            <button onclick="selectProblemType('Hardware')">Hardware</button>
+            <button onclick="selectProblemType('Software')">Software</button>
+        </div>
+        <div id="problem-description-box" class="hidden">
+            <textarea id="problem-description" placeholder="Describe your problem"></textarea><br><br>
+            <button onclick="submitProblem()">Submit</button>
+        </div>
+    </div>
+
+    <!-- Retailer Details After Problem Submission -->
+    <div id="retailer-details-box" class="hidden">
+        <h4>Retailer Assigned</h4>
+        <p>Retailer Name: <span id="retailer-account-name"></span></p>
+        <p>Retailer Address: <span id="retailer-account-address"></span></p>
+        <p>Shop Name: <span id="retailer-account-shop"></span></p>
+    </div>
+</div>
+
+<!-- Map Container (for Google Maps) -->
+<div id="map-container" class="hidden"></div>
+
+
+    <!-- Retailer Details Page -->
+    <div id="retailer-details-page" class="hidden">
+        <nav>
+            <a href="#" onclick="goHome()" class="home-btn">Home</a>
+            <a href="#" onclick="goBack()" class="back-btn">&lt;</a>
+        </nav>
+        <h2>Retailer Details</h2>
+        <form id="retailer-form">
+            <label for="retailer-name">Retailer Name:</label><br>
+            <input type="text" id="retailer-name" placeholder="Enter your name"><br>
+
+            <label for="retailer-address">Retailer Address:</label><br>
+            <input type="text" id="retailer-address" placeholder="Enter your address"><br>
+
+            <label for="shop-name">Shop Name:</label><br>
+            <input type="text" id="shop-name" placeholder="Enter your shop name"><br>
+
+            <label for="best-repairs">List 20 Best Available Repairs:</label><br>
+            <textarea id="best-repairs" placeholder="List your top 20 repairs"></textarea><br>
+
+            <button type="button" onclick="submitRetailerDetails()">Submit</button>
+        </form>
+    </div>
+
+    <!-- Retailer Home Page -->
+    <div id="retailer-home-page" class="hidden">
+        <nav>
+            <a href="#" onclick="goBack()" class="back-btn">&lt;</a>
+            <a href="#" onclick="showRetailerAccount()" class="account-btn">Account</a>
+        </nav>
+        <h2>Retailer Home Page</h2>
+
+        <!-- Retailer Account Details -->
+        <div id="retailer-account-box" class="hidden">
+            <p><strong>Name:</strong> <span id="retailer-account-name"></span></p>
+            <p><strong>Address:</strong> <span id="retailer-account-address"></span></p>
+            <p><strong>Shop Name:</strong> <span id="retailer-account-shop"></span></p>
+        </div>
+
+        <!-- View Assignment Section -->
+        <div>
+            <h3>View Assignment</h3>
+            <p><strong>Customer Problem:</strong> Device not working</p>
+            <p><strong>Address:</strong> 123 Customer Street</p>
+            <p><strong>Phone Number:</strong> +123456789</p>
+
+            <button onclick="acceptAssignment()">Accept</button>
+
+            <!-- Chat box for customer interaction -->
+            <div id="chat-box">
+                <h3>Chat with Customer</h3>
+                <textarea id="chat-message" placeholder="Type your message"></textarea>
+                <button onclick="sendMessage()">Send</button>
+            </div>
+
+            <!-- Share Repairing Status -->
+            <div id="status-box">
+                <h3>Share Repairing Status</h3>
+                <textarea id="repair-status" placeholder="Update repairing status"></textarea>
+                <button onclick="shareStatus()">Share Status</button>
+            </div>
+
+            <!-- Update Duty Section -->
+            <div id="update-duty-box">
+                <h3>Update Duty</h3>
+                <label>
+                    <input type="radio" name="duty-status" id="active-status" onclick="toggleDuty('active')"> Active
+                </label>
+                <label>
+                    <input type="radio" name="duty-status" id="inactive-status" onclick="toggleDuty('inactive')"> Inactive
+                </label>
+            </div>
+
+            <!-- Closing Time Update -->
+            <div id="closing-time-box">
+                <h3>Update Closing Time</h3>
+                <input type="datetime-local" id="closing-time">
+                <button onclick="updateClosingTime()">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
